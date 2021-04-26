@@ -1,22 +1,35 @@
 #ifndef FW_UTIL_H
 #define FW_UTIL_H
-
-#include "./config.h"
-
-/* unclear why this is required (else "error: overloaded function with no
- * contextual type information")*/
-#ifndef TESTING
-#include "fwlib32.h"
-#else
-#define EW_OK 0
-#ifndef _WIN32
-short cnc_startupprocess(long, const char *);
-short cnc_exitprocess();
-#endif
-short cnc_rdcncid(unsigned short, unsigned long *);
-short cnc_allclibhndl3(const char *, unsigned short, long, unsigned short *);
-short cnc_freelibhndl(unsigned short);
-#endif
-
-int retrieve_id(Config *, char *);
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "../lib/fwlib32.h"
+typedef struct odbdy2_t
+{
+  int16_t dummy;
+  int16_t axis;
+  int32_t alarm;
+  int32_t prgnum;
+  int32_t prgmnum;
+  int32_t seqnum;
+  int32_t actf;
+  int32_t acts;
+  union
+  {
+    struct
+    {
+      int32_t absolute[MAX_AXIS];
+      int32_t machine[MAX_AXIS];
+      int32_t relative[MAX_AXIS];
+      int32_t distance[MAX_AXIS];
+    } faxis;
+    struct
+    {
+      int32_t absolute;
+      int32_t machine;
+      int32_t relative;
+      int32_t distance;
+    } oaxis;
+  } pos;
+} ODBDY2_T;
 #endif

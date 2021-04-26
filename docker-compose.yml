@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  fwlib:
+    image: strangesast/fwlib
+    build:
+      context: .
+      dockerfile: Dockerfile
+  example:
+    image: strangesast/fwlib-example
+    network_mode: host
+    build:
+      context: .
+      dockerfile: example/Dockerfile
+    depends_on:
+      - fwlib

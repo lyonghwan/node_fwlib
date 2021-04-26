@@ -3,7 +3,13 @@
     "*.log": "log",
     "libconfig.h": "c",
     "stdlib.h": "c",
-    "*.h++": "cpp"
+    "*.h++": "cpp",
+    "stdbool.h": "c",
+    "config.c": "cpp",
+    "__locale": "cpp",
+    "ratio": "cpp",
+    "__config": "cpp",
+    "config.h": "c"
   },
   "cmake.configureOnOpen": false
 }

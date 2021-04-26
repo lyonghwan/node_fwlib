@@ -2,25 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "./config.c"
 #include "./util.c"
-#include "fwlib32.h"
+#include "../lib/fwlib32.h"
 
-int getMachine()
+int getMachine(const char *host, int port)
 {
   char cncID[36];
-  Config conf;
 
-  // if (read_config(argc, argv, &conf))
-  // {
-  //   fprintf(stderr,
-  //           "usage: %s --config=<path_to_config> --port=<device port> "
-  //           "--ip=<device ip>\n",
-  //           argv[0]);
-  //   return EXIT_FAILURE;
-  // }
-
-  if (retrieve_id(&conf, cncID))
+  if (retrieve_id(host, port, cncID))
   {
     return EXIT_FAILURE;
   }
