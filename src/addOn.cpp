@@ -29,7 +29,7 @@ Napi::Value MapperConnect(const Napi::CallbackInfo &info)
   const char *host = info[0].ToString().Utf8Value().c_str();
   int port = info[1].As<Napi::Number>().Int32Value();
   unsigned short *cncLibHandler;
-  Napi::String str = Napi::String::New(env, connect(&cncLibHandler));
+  Napi::String str = Napi::String::New(env, connect(host, port, &cncLibHandler));
   return cncLibHandler;
 }
 

@@ -5,20 +5,18 @@
 #include <assert.h>
 #include <string.h>
 
-// #include "./config.h"
-
 /**
  * 
  * 
  * */
-char *connect(char *host, int ip, unsigned short cncLibHandler)
+char *connect(char *host, int port, unsigned short cncLibHandler)
 {
   short ret;
   // unsigned short cncLibHandler;
   ret = cnc_startupprocess(0, "focas.log");
 
   static char code[8];
-  ret = cnc_allclibhndl3("127.0.0.1", 8193, 3, &cncLibHandler);
+  ret = cnc_allclibhndl3(host, port, 3, &cncLibHandler);
   if (ret != EW_OK)
   {
     const char *msg;
@@ -49,9 +47,7 @@ char *connect(char *host, int ip, unsigned short cncLibHandler)
  * */
 short disconnect(unsigned short cncLibHandler)
 {
-  // ODBST buf;
   short ret;
-  // cnc_statinfo(cncLibHandler, &buf);
   ret = cnc_freelibhndl(cncLibHandler);
   ret = cnc_exitprocess();
   return ret;
@@ -86,7 +82,6 @@ ODBSYS sysinfo(unsigned short cncLibHandler)
   if (ret != EW_OK)
   {
     char code[8] = "";
-    // const char *msg = "An unknown error occurred.";
     snprintf(code, 7, "%d", ret);
   }
 
@@ -102,15 +97,6 @@ ODBST statinfo(unsigned short cncLibHandler)
   if (ret != EW_OK)
   {
     char code[8] = "";
-    // const char *msg;
-    // switch (ret)
-    // {
-    // case EW_FUNC:
-    //   msg = "Not available.";
-    //   break;
-    // default:
-    //   msg = "An unknown error occurred.";
-    // }
     snprintf(code, 7, "%d", ret);
   }
 
@@ -131,18 +117,6 @@ ODBDY2_T readDynamicTow(unsigned short cncLibHandler)
   if (ret != EW_OK)
   {
     char code[8] = "";
-    // const char *msg;
-    // switch (ret)
-    // {
-    // case EW_LENGTH:
-    //   msg = "data block length error: Size of ODBDY structure(length) is illegal.";
-    //   break;
-    // case EW_ATTRIB:
-    //   msg = "data attribute error: The specification of axis number (axis) is improper.";
-    //   break;
-    // default:
-    //   msg = "An unknown error occurred.";
-    // }
     snprintf(code, 7, "%d", ret);
   }
   return dyn;
